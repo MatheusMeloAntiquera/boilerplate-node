@@ -1,0 +1,9 @@
+{
+    "required": "O campo :param é obrigatório.",
+    "email": "O campo :param deve ser um endereço de e-mail válido.",
+    "min": {
+        "string": "O campo :param deve ter no mínimo :min caracteres.",
+        "numeric": "O campo :param deve ser no mínimo igual ou maior do que :min."
+    },
+    "emailUnique": "O e-mail informado já pertence a outro usuário"
+}

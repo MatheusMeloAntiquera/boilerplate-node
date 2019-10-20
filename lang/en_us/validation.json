@@ -1,0 +1,9 @@
+{
+    "required": "The :param field is required",
+    "email": "The :param must be a valid email address",
+    "min": {
+        "string": "The :param must be at least :min characters.",
+        "numeric": "The :param field must be at least equal to or greater than :min."
+    },
+    "emailUnique": "The email you entered already belongs to another user"
+}
