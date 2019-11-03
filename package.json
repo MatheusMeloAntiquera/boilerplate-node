@@ -1,10 +1,11 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "boilerplate-node",
+  "version": "0.0.0",
+  "description": "A simple Boilerplate for NodeJs Api Rest",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "test": "echo \"No test specified\""
   },
   "keywords": [],
   "author": "",
