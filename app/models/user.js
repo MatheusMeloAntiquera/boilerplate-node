@@ -8,7 +8,7 @@ module.exports = (app) => {
     password: Sequelize.STRING,
     createdAt: {
       type: Sequelize.DATE,
-      field: 'created_at'
+      field: 'created_at',
     },
     updatedAt: {
       type: Sequelize.DATE,
@@ -17,8 +17,17 @@ module.exports = (app) => {
 
 
   }, {
-      timestamps: true,
-      modelName: 'user'
+    timestamps: true,
+    modelName: 'user',
+    underscored: true,
+    defaultScope: {
+      attributes: { exclude: ['password'] },
+    },
+    scopes: {
+      withPassword: {
+        attributes: { include: ['password'] },
+      }
+    }
   });
   User.associate = function (models) {
     // associations can be defined here
