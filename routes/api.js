@@ -6,6 +6,10 @@ module.exports = app => {
 
     const { validateRequest } = app.requests.validator;
 
+    const middlewaresAuth = [
+        app.passport.authenticate('jwt', { session: false }), app.middlewares.valid_token
+    ];
+
     //Register route
     app.post('/signup', validateRequest(requests.signup), async (req, res) => {
         return await controllers.user.signup(req, res);
@@ -16,7 +20,12 @@ module.exports = app => {
         return controllers.user.login(req, res);
     });
 
-    app.get('/profile', app.passport.authenticate('jwt', { session: false }), (req, res) => {
-        controllers.user.profile(req, res);
+    //Logout
+    app.post('/logout', middlewaresAuth, (req, res) => {
+        return controllers.user.logout(req, res);
     });
+
+    app.route('/user')
+        .all(middlewaresAuth)
+        .get(controllers.user.profile)
 }

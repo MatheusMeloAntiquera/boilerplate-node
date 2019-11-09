@@ -1,10 +1,11 @@
 const app = require('express')();
 const consign = require('consign');
 const Sequelize = require('sequelize');
+const bearerToken = require('express-bearer-token');
 
 database = require('./config/database');
 
-
+app.use(bearerToken())
 app.db = new Sequelize(database);
 
 app.jwt = require('jsonwebtoken');
