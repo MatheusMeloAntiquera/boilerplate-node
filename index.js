@@ -1,30 +1,26 @@
-const app = require('express')();
-const consign = require('consign');
-const Sequelize = require('sequelize');
-const bearerToken = require('express-bearer-token');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import routes from './routes/api';
+import Sequelize from 'sequelize';
+import bearerToken from 'express-bearer-token';
 
-database = require('./config/database');
+// database = require('./config/database');
 
-app.use(bearerToken())
-app.db = new Sequelize(database);
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+// app.use(bearerToken())
+// app.db = new Sequelize(database);
+
+//How to use: app.translator.validation.required 
+app.translator = require('./lang/translate.js').default;
+
+app.use(routes);
 
 app.jwt = require('jsonwebtoken');
 
-//How to use: app.translator.validation.required 
-app.translator = require('./lang/translate.js');
-
-consign({ cwd: 'app' })
-    .then('./middlewares')
-    .then('./helpers')
-    .then('./models')
-    .then('../config/passport.js')
-    .then('./controllers')
-    .then('./rules')
-    .then('./requests')
-    .then('../routes/api.js')
-    .into(app);
-
 app.listen(3000, () => {
 
-    console.log('Listen port 3000')
-})
+    console.log('Listen port 3000');
+});

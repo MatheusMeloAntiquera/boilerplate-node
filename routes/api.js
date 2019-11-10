@@ -1,31 +1,42 @@
+import { Router } from 'express';
+import { validateRequest } from '../app/requests/validator'
+import  SignUpRequest  from '../app/requests/signup'
+import { UserController } from '../app/controllers/user'
 
-module.exports = app => {
+const routes = Router();
 
-    const controllers = app.controllers;
-    const requests = app.requests;
+routes.post('/signup', validateRequest(SignUpRequest), async (req, res) => {
+    return await UserController.signup(req, res);
+});
 
-    const { validateRequest } = app.requests.validator;
+export default routes;
+// module.exports = app => {
 
-    const middlewaresAuth = [
-        app.passport.authenticate('jwt', { session: false }), app.middlewares.valid_token
-    ];
+//     const controllers = app.controllers;
+//     const requests = app.requests;
 
-    //Register route
-    app.post('/signup', validateRequest(requests.signup), async (req, res) => {
-        return await controllers.user.signup(req, res);
-    });
+//     const { validateRequest } = app.requests.validator;
 
-    //Login
-    app.post('/login', validateRequest(requests.login), (req, res) => {
-        return controllers.user.login(req, res);
-    });
+//     const middlewaresAuth = [
+//         app.passport.authenticate('jwt', { session: false }), app.middlewares.valid_token
+//     ];
 
-    //Logout
-    app.post('/logout', middlewaresAuth, (req, res) => {
-        return controllers.user.logout(req, res);
-    });
+//     //Register route
+//     app.post('/signup', validateRequest(requests.signup), async (req, res) => {
+//         return await controllers.user.signup(req, res);
+//     });
 
-    app.route('/user')
-        .all(middlewaresAuth)
-        .get(controllers.user.profile)
-}
+//     //Login
+//     app.post('/login', validateRequest(requests.login), (req, res) => {
+//         return controllers.user.login(req, res);
+//     });
+
+//     //Logout
+//     app.post('/logout', middlewaresAuth, (req, res) => {
+//         return controllers.user.logout(req, res);
+//     });
+
+//     app.route('/user')
+//         .all(middlewaresAuth)
+//         .get(controllers.user.profile)
+// }
