@@ -20,4 +20,4 @@ const validateRequest = validations => async (req, res, next) => {
     });
 };
 
-export { validateRequest }
+export { validateRequest };
