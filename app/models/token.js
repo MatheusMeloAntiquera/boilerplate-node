@@ -1,27 +1,23 @@
 'use strict';
-
-module.exports = (app) => {
-  const Sequelize = app.db.Sequelize;
-  const Token = app.db.define('Token', {
-    access_token_id: Sequelize.STRING,
+export default (sequelize, DataTypes) => {
+  const Token = sequelize.define('Token', {
+    access_token_id: DataTypes.STRING,
     revoked: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: false
     },
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'created_at',
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'updated_at'
     },
   }, {
       timestamps: true,
-      underscored: true
+      underscored: true,
   });
-  Token.associate = function (models) {
-    // associations can be defined here
-  };
+
   return Token;
 };

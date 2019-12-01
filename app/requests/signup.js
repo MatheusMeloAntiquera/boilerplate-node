@@ -1,12 +1,16 @@
-const { body } = require('express-validator');
-module.exports = app => [
+
+import { body } from 'express-validator';
+import { validation } from '~/lang/translate';
+import UniqueEmailRule from '../rules/uniqueEmail';
+
+export default [
      body('email')
-          .exists().withMessage(app.translator.validation.required)
-          .isEmail().withMessage(app.translator.validation.email)
-          .custom(app.rules.uniqueEmail),
+          .exists().withMessage(validation.required)
+          .isEmail().withMessage(validation.email)
+          .custom(UniqueEmailRule),
      body('password')
-          .exists().withMessage(app.translator.validation.required)
-          .isLength({ min: 6 }).withMessage(app.translator.validation.min.string.replace(':min', 6)),
+          .exists().withMessage(validation.required)
+          .isLength({ min: 6 }).withMessage(validation.min.string.replace(':min', 6)),
      body('name')
-          .exists().withMessage(app.translator.validation.required)
-]
+          .exists().withMessage(validation.required)
+];

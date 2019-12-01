@@ -1,17 +1,16 @@
 'use strict';
 
-module.exports = (app) => {
-  const Sequelize = app.db.Sequelize;
-  const User = app.db.define('User', {
-    name: Sequelize.STRING,
-    email: Sequelize.STRING,
-    password: Sequelize.STRING,
+export default (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    name: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'created_at',
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
       field: 'updated_at'
     },
 
@@ -29,9 +28,9 @@ module.exports = (app) => {
       }
     }
   });
-  User.associate = function (models) {
-    // associations can be defined here
-  };
+  // User.associate = function (models) {
+  //   // associations can be defined here
+  // };
 
-  return User
+  return User;
 };

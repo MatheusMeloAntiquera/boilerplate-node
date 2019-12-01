@@ -1,7 +1,9 @@
-const { body } = require('express-validator');
-module.exports = app => [
+import { body } from 'express-validator';
+import { validation } from '~/lang/translate';
+
+export default [
      body('email')
-          .exists().withMessage(app.translator.validation.required),
+          .exists().withMessage(validation.required),
      body('password')
-          .exists().withMessage(app.translator.validation.required)
-]
+          .exists().withMessage(validation.required)
+];

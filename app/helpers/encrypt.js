@@ -1,15 +1,12 @@
-const bcrypt = require('bcrypt-nodejs')
+import { genSaltSync, hashSync, compareSync } from 'bcrypt-nodejs';
 
-module.exports = app => {
+const encryptString = (string) => {
+    const salt = genSaltSync(10);
+    return hashSync(string, salt);
+};
 
-    function encryptString(string) {
-        const salt = bcrypt.genSaltSync(10)
-        return bcrypt.hashSync(string, salt)
-    }
+const compareString = (string, hash) => {
+    return compareSync(string, hash);
+};
 
-    function compareString(string, hash) {
-        return bcrypt.compareSync(string, hash);
-    }
-
-    return { encryptString, compareString }
-}
+export default { encryptString, compareString };
