@@ -3,8 +3,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes/api';
 import bearerToken from 'express-bearer-token';
+import mongoose from 'mongoose';
+import databaseConfig from './config/database';
 
-// database = require('./config/database');
+mongoose.Promise = global.Promise;
 
 const app = express();
 app.use(cors());
@@ -19,7 +21,17 @@ app.use(routes);
 
 app.jwt = require('jsonwebtoken');
 
-app.listen(3000, () => {
+mongoose.set('useCreateIndex', true);
+const server = mongoose.connect(process.env.MONGODB_PATH, databaseConfig)
+    .then(() => {
+        console.log('mongodb started.');
+        return app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+            console.log(`Server started on ${process.env.APP_HOST}:${process.env.APP_PORT} `);
+        });
+    }).catch((error) => {
+        console.log(error);
+        console.log('Mongodb connection failed.');
+        process.exit(1);
+    });
 
-    console.log('Listen port 3000');
-});
+    export default server;

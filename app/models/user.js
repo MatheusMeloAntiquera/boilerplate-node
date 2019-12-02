@@ -1,36 +1,22 @@
-'use strict';
+import { model, Schema } from 'mongoose';
 
-export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    createdAt: {
-      type: DataTypes.DATE,
-      field: 'created_at',
+const schema = new Schema({
+    name:{
+        type: String,
+        required: true
     },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated_at'
+    email: {
+        type: String,
+        index: true,
+        unique: true,
+        required: true,
     },
-
-
-  }, {
-    timestamps: true,
-    modelName: 'user',
-    underscored: true,
-    defaultScope: {
-      attributes: { exclude: ['password'] },
-    },
-    scopes: {
-      withPassword: {
-        attributes: { include: ['password'] },
-      }
+    password: {
+        type: String,
+        required: true
     }
-  });
-  // User.associate = function (models) {
-  //   // associations can be defined here
-  // };
+});
 
-  return User;
-};
+const User = model('User', schema);
+
+export default User;

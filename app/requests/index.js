@@ -1,5 +1,5 @@
-import SignUpRequest from './signup';
-import LoginRequest from './login';
+import SignUpRequest from './SignupRequest';
+import LoginRequest from './LoginRequest';
 
 export {
     SignUpRequest,

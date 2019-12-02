@@ -1,7 +1,7 @@
 
 import { body } from 'express-validator';
 import { validation } from '~/lang/translate';
-import UniqueEmailRule from '../rules/uniqueEmail';
+import UniqueEmailRule from '../rules/uniqueEmail.rule';
 
 export default [
      body('email')

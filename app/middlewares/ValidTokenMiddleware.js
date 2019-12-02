@@ -1,12 +1,9 @@
 import { Token } from '../models';
 export default (req, res, next) => {
-    
+
     Token.findOne({
-        where:
-        {
-            access_token_id: req.token,
-            revoked: false,
-        }
+        access_token_id: req.token,
+        revoked: false,
     }).then(tokenValid => {
         if (!tokenValid) {
             return res.status(403).json({

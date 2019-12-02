@@ -1,9 +1,9 @@
-import { User }  from '../models/';
+import { User }  from '../models';
 import { validation } from '~/lang/translate';
 
-export default (email) => {
+export default async (email) => {
 
-    return User.findOne({ where: { email } }).then(user => {
+    return User.findOne({ email }).then(user => {
         if (user) {
             return Promise.reject(validation.emailUnique);
         }

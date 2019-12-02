@@ -1,4 +1,4 @@
-import ValidTokenMiddleware from './valid-token';
+import ValidTokenMiddleware from './ValidTokenMiddleware';
 
 export {
     ValidTokenMiddleware
