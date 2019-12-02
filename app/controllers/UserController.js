@@ -1,27 +1,35 @@
 import { User, Token } from '../models';
-import EncryptHelper from '../helpers/encrypt';
+import { UserRepository, TokenRepository } from '../respositories';
+import EncryptHelper from '../helpers/EncryptHelper';
 import Jwt from 'jsonwebtoken';
 import Translator from '~/lang/translate';
 
-const signup = (req, res) => {
+const signup = async (req, res) => {
 
     const { name, email, password } = req.body;
-    User.create({
-        name: name,
-        email: email,
-        password: EncryptHelper.encryptString(password)
-    }).then(user => {
+    try {
+        const user = await UserRepository.save({
+            name: name,
+            email: email,
+            password: EncryptHelper.encryptString(password)
+        });
+
+        const token = await TokenRepository.save({
+            access_token_id: returnToken(user),
+        });
 
         return res.status(201).json({
             success: true,
-            token: returnToken(user)
+            token: token.access_token_id
         });
-    }).catch((error) => {
+
+    } catch (error) {
         return res.status(500).json({
             success: false,
             error
         });
-    });
+    }
+
 
 };
 

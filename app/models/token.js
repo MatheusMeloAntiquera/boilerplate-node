@@ -1,23 +1,15 @@
-'use strict';
-export default (sequelize, DataTypes) => {
-  const Token = sequelize.define('Token', {
-    access_token_id: DataTypes.STRING,
-    revoked: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      field: 'created_at',
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated_at'
-    },
-  }, {
-      timestamps: true,
-      underscored: true,
-  });
+import { model, Schema } from 'mongoose';
 
-  return Token;
-};
+const schema = new Schema({
+    access_token_id:{
+        type: String
+    },
+    revoked: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+const Token = model('Token', schema);
+
+export default Token;
