@@ -1,6 +1,7 @@
-export default {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    connectTimeoutMS: 3000,
-    socketTimeoutMS: 3000,
-};
+'use strict';
+
+const env = process.env.NODE_ENV || 'development';
+import knexfile from '../knexfile';
+const knex = require('knex')(knexfile[env]);
+
+export default knex;

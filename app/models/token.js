@@ -1,15 +1,9 @@
-import { model, Schema } from 'mongoose';
+import Model from './Model';
 
-const schema = new Schema({
-    access_token_id:{
-        type: String
-    },
-    revoked: {
-        type: Boolean,
-        default: false,
-    },
-});
+class Token extends Model {
+    constructor() {
+        super('tokens');
+    }
+}
 
-const Token = model('Token', schema);
-
-export default Token;
+export default new Token;

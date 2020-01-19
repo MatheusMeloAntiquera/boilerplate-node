@@ -1,22 +1,9 @@
-import { model, Schema } from 'mongoose';
+import Model from './Model';
 
-const schema = new Schema({
-    name:{
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        index: true,
-        unique: true,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true
+class User extends Model{
+    constructor() {
+        super('users');
     }
-});
+}
 
-const User = model('User', schema);
-
-export default User;
+export default new User;
