@@ -1,4 +1,5 @@
 import knex from '../../config/database';
+import { DateTime } from "luxon";
 
 class Model {
     constructor(table) {
@@ -9,7 +10,7 @@ class Model {
     insert(data) {
         return this.knex(this.table)
             .insert(data)
-            .then(id => this.findById(id));
+            .then(id => this.findById(id[0]));
     }
 
     findById(id) {
@@ -21,9 +22,12 @@ class Model {
     }
 
     update(where, data){
+        /* data.updated_at = DateTime.local().toFormat('yyyy-LL-dd TT:S') */
+        data.updated_at = DateTime.local().toString()
         return this.knex(this.table)
             .where(where)
-            .update(data);
+            .update(data)
+            .then(_ => this.findOne(where));;
     }
 
 }

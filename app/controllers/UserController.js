@@ -3,7 +3,7 @@ import { UserService } from '../services';
 const signup = async (req, res) => {
     const { name, email, password } = req.body;
 
-    UserService.signup(name, email, password).then(
+    UserService.insertUser(name, email, password).then(
         user => {
             return res.status(201).json({
                 success: true,
@@ -32,7 +32,7 @@ const login = (req, res) => {
     ).catch(error => {
         return res.status(500).json({
             success: false,
-            error: error.message
+            error
         });
     });
 

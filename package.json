@@ -6,41 +6,47 @@
   "scripts": {
     "start": "nodemon --exec babel-node index.js ",
     "lint": "./node_modules/.bin/eslint ./",
-    "test": "echo \"No test specified\""
+    "test": "env NODE_ENV=test npm run clean-db && jest --runInBand --watch",
+    "clean-db": "knex migrate:rollback --all --debug=false && knex migrate:latest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "@babel/runtime": "^7.8.4",
     "body-parser": "^1.19.0",
-    "consign": "^0.1.6",
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-bearer-token": "^2.4.0",
     "express-validator": "^6.3.1",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.7",
+    "luxon": "^1.22.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.8.4",
-    "mongoose-scopes": "^1.0.0",
     "mysql": "^2.17.1",
     "mysql2": "^1.7.0",
     "node-input-validator": "^4.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "sqlite3": "^4.1.1",
     "typescript": "^3.7.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/node": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.7.7",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
     "babel-plugin-root-import": "^6.4.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^6.8.0",
-    "nodemon": "^1.19.4"
+    "jest": "^25.1.0",
+    "nodemon": "^1.19.4",
+    "supertest": "^4.0.2"
   }
 }

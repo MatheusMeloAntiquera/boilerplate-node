@@ -1,6 +1,6 @@
 import { User, Token } from '../models';
 import Jwt from 'jsonwebtoken';
-import EncryptHelper from '../helpers/EncryptHelper';
+import EncryptService from './EncryptService'
 import { auth } from '~/lang/translate';
 
 class UserService {
@@ -10,7 +10,7 @@ class UserService {
         return User.insert({
             name: name,
             email: email,
-            password: EncryptHelper.encryptString(password)
+            password: EncryptService.encryptString(password)
         });
 
     }
@@ -19,11 +19,11 @@ class UserService {
 
         return User.findOne({ email }).then((user) => {
             if (!user) {
-                throw new Error(auth.emailInvalid);
+                throw auth.emailInvalid;
             }
 
-            if (!EncryptHelper.compareString(password, user.password)) {
-                throw new Error(auth.passwordIncorrect);
+            if (!EncryptService.compareString(password, user.password)) {
+                throw auth.passwordIncorrect;
             }
 
             return Token.insert({

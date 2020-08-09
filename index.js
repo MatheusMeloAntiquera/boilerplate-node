@@ -3,9 +3,6 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import Routes from './routes';
 import bearerToken from 'express-bearer-token';
-import mongoose from 'mongoose';
-
-mongoose.Promise = global.Promise;
 
 const app = express();
 app.use(cors());

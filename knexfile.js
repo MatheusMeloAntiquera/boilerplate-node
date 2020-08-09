@@ -12,6 +12,24 @@ module.exports = {
     }
   },
 
+  /* test: {
+    client: 'mysql',
+    connection: {
+      host: '127.0.0.1',
+      user: 'root',
+      password: '',
+      database: 'test'
+    }
+  }, */
+  
+  test: {
+    client: 'sqlite3',
+    connection: {
+      filename: 'C:\\sqlite\\test.db'
+    },
+    useNullAsDefault: true,
+  },
+
   staging: {
     client: 'postgresql',
     connection: {
